@@ -2,6 +2,7 @@
 This script reads [arg1], and pairs the words in column "target" with all their POS-equivalent WordNet synonyms. It outputs two files: one with the target-synset matches, one with the target-synonym matches.
 
 """
+TEST
 
 import sys
 import re
