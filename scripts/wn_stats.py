@@ -13,7 +13,7 @@ import os
 import numpy as np
 import pandas as pd
 
-posmapping_wn_to_inputdata = {"n": "n", "s": "adj","r":"adv", "a":"adj"}#unmapped: phr, prep, int
+posmapping_wn_to_inputdata = {"n": "n", "s": "adj","r":"adv", "a":"adj", "v":"v"}#unmapped: phr, prep, int
 
 def synset_name(synset):
 	return synset.name()
