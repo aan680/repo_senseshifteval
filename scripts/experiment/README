@@ -1,0 +1,1 @@
+evaluate_target_ref.R contains a function evaluate(target, ref, t, gold) which does the same thing as function rho_p_correct(target, ref, gold, t) from hw_functions.py, but is my own implementation, and assumes the vectors have been downloaded in advance from HistWords. 
