@@ -48,6 +48,7 @@ def synset_size(synset):
 def pos_my_notation(synset): #translate the wn pos to the notation I use (across all source data. NA if WN pos does not correspond to any 
 	 wn_pos = synset.pos() 
 	 return posmapping_wn_to_inputdata.get(wn_pos, "NA")
+
 	
 def no_of_pos(word):
 	synsets = wn.synsets(word)
@@ -56,10 +57,10 @@ def no_of_pos(word):
 	return len(pos_counter.items()) #i.e. how many different POS are the synsets distributed across  
 
 def polysemy(word): #define polysemy of word (VECTOR) as nr of synsets / nr of different pos
-	return synsets(word) / pos(word)
+	return no_of_synsets(word) / no_of_pos(word)
 
 def synset_rank(word, synset): #what is the number of a given synset for a word? I.e. how central is the word to this synset? 
-	synsets = wn_synsets(word) #! we need the raw name otherwise it says Synset(blabla.n.01)
+	synsets = synsets_by_name(word) #! we need the raw name otherwise it says Synset(blabla.n.01)
 	return synsets.index(synset) + 1 #!!! python indexes from zero so add 1 
 
 def allinfo_synset(synset):
