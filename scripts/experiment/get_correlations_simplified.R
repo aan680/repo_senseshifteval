@@ -142,25 +142,22 @@ evaluate_synset_by_average_vector<- function(df, correct_column="correct_my"){
 
 ##############################
 
-evaluate_one_synset <-function(df, correct_column="correct_my"){ #df holds one synset. #correct_column is either correct_my or correct_HW
-	if(nrow(df)<2){return(NA,NA,NA,NA)}
-	correct_by_maxcorr <- df %>% .[order(-.$corr),] %>% df[1,] %>% .[[correct_column]] #descending so negative
-	correct_by_minp <- df %>% .[order(.$p),] %>% df[1,] %>% .[[correct_column]] #ascending
+evaluate_one_synset <-function(df, correct_column="correct"){ #df holds one synset. #correct_column is either correct_my or correct_HW
+	print(df)
+	target <- unlist(df$target) #or just df$target?
+	synset <- unlist(df$synset) #or just df$synset?
+	t <- unlist(df$t)
+	if(nrow(df)<2){
+	print(index(df))
+	return(list(NA,NA,NA,NA,NA,NA,NA))
+	}
+	correct_by_maxcorr <- df[order(-as.numeric(df$corr)),] %>% .[1,] %>% .[[correct_column]] #descending so negative
+	correct_by_minp <- df[order(df$p),] %>% .[1,] %>% .[[correct_column]] #ascending
 	correct_by_majorityvote <- df %>%  .[[correct_column]] %>% modal(.,  ties='lowest', na.rm=TRUE, freq=FALSE)
 	correct_by_avg <- df %>% evaluate_synset_by_average_vector(.)
-	return(correct_by_maxcorr, correct_by_minp, correct_by_majorityvote, correct_by_avg)
+	return(list(target, synset, t, correct_by_maxcorr, correct_by_minp, correct_by_majorityvote, correct_by_avg))
 }
 
-#SenSeShifTEval. this is based on the criteria we use in the paper
-senseshifteval <- function(df, criterion, resulttype){ #df is the data frame with the word-level outcomes, so inc. p and correct col
-	df$synset <- unlist(df$synset)
-	result <- data.frame()
-	synset_dfs<- split(df, list(df$synset, df$target, df$t), drop=TRUE)
-	allresults <- lapply(synset_dfs, function(x) evaluate_one_synset(x)) %>% rbind(.) ##TRY AND CHECK
-	return(allresults)
-	#result$synset <- unlist(result$synset)
-	
-}
 
 ###now choose representation for every synset; THIS IS FUTURE WORK we hint at in the paper
 senseshifteval_improved <- function(df, summaryfile){
@@ -188,9 +185,9 @@ senseshifteval_improved <- function(df, summaryfile){
 
 
 ##MAIN#####
+#to test:
 
-
-#EVALUATE WORD SHIFT EVAL
+#WORD SHIFT EVAL
 input <- read.csv(opt$inputfile) %>% .[which(.$gold!=0),]  
 if(opt$add_stats){input <- add_lexical_stats(input)}
 
@@ -198,7 +195,8 @@ if(opt$add_stats){input <- add_lexical_stats(input)}
 #this uses my own method, with collected vectors and with at least 5 observations (cos sim values). See R script evaluate_target_ref_t
 #THESE RESULTS ARE REPORTED IN THE PAPER!
 results <- apply(input, 1, function(x) evaluate_my_way(x["target"], x["ref"], as.numeric(x["t"]), as.numeric(x["gold"]))) %>% do.call(rbind, .) %>% cbind(input, .)
-apply(results,2,as.character) %>% write.csv(., file=paste("results/wordshifteval_", opt$dataset, ".csv",sep=""))
+#apply(results,2,as.character) %>% 
+write.table(results, file=paste("results/wordshifteval_", opt$dataset, ".csv",sep=""))
 
 #numbers reported in the paper
 N <- subset(results, !is.na(results$correct))%>% nrow() #nr of non NA results
@@ -209,20 +207,28 @@ summary <- rbind(100*pct_correct, 100*pct_correct_and_sig, N)
 print(summary)
 write.table(summary, file=paste("results/summary_wordshifteval_", opt$dataset, ".csv",sep=""))
 
+accuracy <- function(col){
+	N_correct <- sum(col, na,rm=T)
+	N_valid <- sum(!is.na(col))
+	return(100*(N_correct/N_valid))
+}
+
+
+#SENSE SHIFT EVAL
+synset_dfs<- split(results, list(as.character(results$synset), results$target, results$t), drop=TRUE)
+resultslist <- lapply(synset_dfs, function(x) evaluate_one_synset(x)) 
+all <- do.call(rbind, resultslist)
+summary <- rbind(accuracy(all$correct_by_maxcorr), accuracy(all$correct_by_minp), accuracy(all$correct_by_majorityvote), accuracy(all$correct_by_avg))
+
+write.table(as.data.frame(summary), file = summaryfile, append = FALSE, sep = ",", row.names=FALSE,col.names = TRUE)) #
+
+
+####################################################################
+####FYI
 #this is the method by HW. Beware: missing observations treated as zeros
 #these results were not reported but good as a reference
 results_hw <- apply(input, 1, function(x) evaluate_by_hw(x["target"], x["ref"], as.numeric(x["t"]), as.numeric(x["gold"]))) %>% do.call(rbind, .) %>% cbind(input, .)
 apply(results_hw,2,as.character) %>% write.csv(., file=paste("results/hw_wordshifteval_", opt$dataset, ".csv",sep=""))
-
-
-
-
-#EVALUATE SENSE SHIFT EVAL
-#input <- read.csv(wordshifteval_results_file)
-#correctdf <- senseshifteval(input)
-#summary <- result[,c("target", "synset", "t", "ref", "ref_centrality", "polysemy_ref", "freq.y", "correct_WH", "correct_myimplementation", "gold")]
-#write.table(as.data.frame(summary), file = summaryfile, append = FALSE, sep = ",", row.names=FALSE,col.names = TRUE)) #
-
 
 
 
