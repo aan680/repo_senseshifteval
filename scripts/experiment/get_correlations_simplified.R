@@ -4,7 +4,8 @@ library(optparse)
 
 option_list = list(
   make_option(c("--dataset"),    action="store", default= "", help="how to call the results file"),
-  make_option(c("--inputfile"),    action="store", default= "", help="file with the word-level gold standard")
+  make_option(c("--inputfile"),    action="store", default= "", help="file with the word-level gold standard"),
+  make_option(c("--add_stats"),    action="store", default= TRUE, help="whether to add the lexical data stats, only possible if synset column present")
 )
 opt = parse_args(OptionParser(option_list=option_list))
 
@@ -191,21 +192,13 @@ senseshifteval_improved <- function(df, summaryfile){
 
 #EVALUATE WORD SHIFT EVAL
 input <- read.csv(opt$inputfile) %>% .[which(.$gold!=0),]  
-input <- add_lexical_stats(input)
-print(head(input))
+if(opt$add_stats){input <- add_lexical_stats(input)}
+
 
 #this uses my own method, with collected vectors and with at least 5 observations (cos sim values). See R script evaluate_target_ref_t
 #THESE RESULTS ARE REPORTED IN THE PAPER!
 results <- apply(input, 1, function(x) evaluate_my_way(x["target"], x["ref"], as.numeric(x["t"]), as.numeric(x["gold"]))) %>% do.call(rbind, .) %>% cbind(input, .)
-
-#this is the method by HW. Beware: missing observations treated as zeros
-#these results were not reported but good as a reference
-results_hw <- apply(input, 1, function(x) evaluate_by_hw(x["target"], x["ref"], as.numeric(x["t"]), as.numeric(x["gold"]))) %>% do.call(rbind, .) %>% cbind(input, .)
-
-#write results to file
-write.csv(results, file=paste("wordshifteval_", opt$dataset, "_.csv",sep="")
-write.csv(results_hw, file=paste("hw_wordshifteval_", opt$dataset, "_.csv",sep="")
-
+apply(results,2,as.character) %>% write.csv(., file=paste("results/wordshifteval_", opt$dataset, ".csv",sep=""))
 
 #numbers reported in the paper
 N <- subset(results, !is.na(results$correct))%>% nrow() #nr of non NA results
@@ -214,7 +207,13 @@ pct_correct <- N_correct/ N
 pct_correct_and_sig <- subset(results, results$correct==1 & results$sig==1) %>% nrow(.) / N_correct
 summary <- rbind(100*pct_correct, 100*pct_correct_and_sig, N)
 print(summary)
-write.table(summary, file=paste("wordshifteval_", opt$dataset, "_summary.csv",sep=""))
+write.table(summary, file=paste("results/summary_wordshifteval_", opt$dataset, ".csv",sep=""))
+
+#this is the method by HW. Beware: missing observations treated as zeros
+#these results were not reported but good as a reference
+results_hw <- apply(input, 1, function(x) evaluate_by_hw(x["target"], x["ref"], as.numeric(x["t"]), as.numeric(x["gold"]))) %>% do.call(rbind, .) %>% cbind(input, .)
+apply(results_hw,2,as.character) %>% write.csv(., file=paste("results/hw_wordshifteval_", opt$dataset, ".csv",sep=""))
+
 
 
 
