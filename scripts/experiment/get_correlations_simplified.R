@@ -1,5 +1,12 @@
 require("reticulate") #for importing python objects
 library(magrittr)
+library(optparse)
+
+option_list = list(
+  make_option(c("--dataset"),    action="store", default= "", help="how to call the results file"),
+  make_option(c("--inputfile"),    action="store", default= "", help="file with the word-level gold standard")
+)
+opt = parse_args(OptionParser(option_list=option_list))
 
 
 source_python("scripts/experiment/pickle_reader.py")
@@ -28,7 +35,7 @@ check_and_fix_synset_col <- function(df){ #give col correct name (synset) and if
 
 }
 
-
+#note: freqs at 1990 as the proxy for overall frequency!!! 
 add_freq <- function(df){
 	df1 <- merge(df, freqs, by.x="target", by.y="word", all.x=TRUE, all.y=FALSE)
 	df <- merge(df1, freqs, by.x="ref", by.y="word", all.x=TRUE, all.y=FALSE)
@@ -177,45 +184,39 @@ senseshifteval_improved <- function(df, summaryfile){
 	return(result)
 }
 
-accuracy <- function(col){
-	N_correct <- sum(col, na.rm=T)
-	N_valid <- sum(!is.na(col))
-	return(N_correct/N_valid)
-}
+
 
 ##MAIN#####
 
 
-#SETTINGS###
-
-my_dataset <- "HW+"
-filename_gold <- "gold_wordpair_after_iaa.csv"
-#filename_gold <- "sourcedata_with_gold.csv"
-
-#########################################################################################################
-#gold standard to evaluate against
-get_inputfile <- function(dataset=my_dataset, filename=filename_gold) {paste("/ufs/aggelen/repl_SenseShiftEval/data/", dataset, "/", filename, sep="")}
-inputfile <- get_inputfile()
-
-#outputfile
-wordshifteval_results_file <- file.path("results", "wordlevel", paste(dataset, ".csv",sep=""))
-sensehifteval_results_file <- file.path("results", "senselevel", paste(dataset, ".csv",sep=""))
-
-
-
 #EVALUATE WORD SHIFT EVAL
-input <- read.csv(inputfile) 
+input <- read.csv(opt$inputfile) %>% .[which(.$gold!=0),]  
 input <- add_lexical_stats(input)
 print(head(input))
-#the evaluation file with the gold standard
-correct_by_me <- apply(input, 1, function(x) evaluate(x["target"], x["ref"], as.numeric(x["t"]), as.numeric(x["gold"]))) #this uses my own method, with collected vectors
-correct_by_hw <- apply(input, 1, function(x) correct_by_hw(x["target"], x["ref"], as.numeric(x["gold"]), as.numeric(x["t"])))
 
-results <- cbind(input, correct_by_me, correct_by_hw)
-write.csv(results, file=wordshifteval_results_file)
-print(head(results))
-print(accuracy(correct_by_me))
-print(accuracy(correct_by_hw))
+#this uses my own method, with collected vectors and with at least 5 observations (cos sim values). See R script evaluate_target_ref_t
+#THESE RESULTS ARE REPORTED IN THE PAPER!
+results <- apply(input, 1, function(x) evaluate_my_way(x["target"], x["ref"], as.numeric(x["t"]), as.numeric(x["gold"]))) %>% do.call(rbind, .) %>% cbind(input, .)
+
+#this is the method by HW. Beware: missing observations treated as zeros
+#these results were not reported but good as a reference
+results_hw <- apply(input, 1, function(x) evaluate_by_hw(x["target"], x["ref"], as.numeric(x["t"]), as.numeric(x["gold"]))) %>% do.call(rbind, .) %>% cbind(input, .)
+
+#write results to file
+write.csv(results, file=paste("wordshifteval_", opt$dataset, "_.csv",sep="")
+write.csv(results_hw, file=paste("hw_wordshifteval_", opt$dataset, "_.csv",sep="")
+
+
+#numbers reported in the paper
+N <- subset(results, !is.na(results$correct))%>% nrow() #nr of non NA results
+N_correct <- sum(as.numeric(results[['correct']]), na.rm=T) 
+pct_correct <- N_correct/ N
+pct_correct_and_sig <- subset(results, results$correct==1 & results$sig==1) %>% nrow(.) / N_correct
+summary <- rbind(100*pct_correct, 100*pct_correct_and_sig, N)
+print(summary)
+write.table(summary, file=paste("wordshifteval_", opt$dataset, "_summary.csv",sep=""))
+
+
 
 #EVALUATE SENSE SHIFT EVAL
 #input <- read.csv(wordshifteval_results_file)
