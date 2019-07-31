@@ -3,14 +3,14 @@ library(optparse)
 library(magrittr)
 #library(lsa) #cosine
 library(rlist)
-library(Hmisc)
+#library(Hmisc)
 library(xtable)
 library(lsa)
 library(dplyr)
 library(raster) #implements modal, most frequent value, used for voting function
 options(stringsAsFactors = FALSE)
 
-dir_vectors <- "/ufs/aggelen/SenseShiftEval/data/vectors/SGNS"
+#dir_vectors <- "/ufs/aggelen/SenseShiftEval/data/vectors/SGNS"
 
 #pick up the frequency file. This is a CSV file unpackaged from the HW pickle.
 #freqfile<-"data/freqs_engall_unpickled"
@@ -30,7 +30,7 @@ freq_above_min <- function(word, time, df_freq = freqs){ #is the freq of the wor
 
 
 
-allvectors <- function(word){
+allvectors <- function(word, dir_vectors){
 	filepath <- word %>% paste(., "_dia.csv", sep ="") %>% file.path(dir_vectors, .) 
 	if(!file.exists(filepath)){stop(filepath, " does not exist")}
 	allvectors <- read.csv(filepath, header=TRUE)
@@ -65,7 +65,6 @@ cosines <- function(target, ref, vecs_target, vecs_ref, timespan){
     	vector_length <- length(v_t)
 	
     	cos<- cosine(v_t, v_r)[[1]] #cosine similarity method from lsa, returns NA if one or both vectors are all zero
-    	print(cos)
         #if(cos==0){cos <- NA}
     #else{
     	result[1,  as.character(time)] <- cos
@@ -80,30 +79,39 @@ timespan_from_t <- function(t) {
   return(timespan)
 }
 
-
-evaluate <- function(target, ref, t, gold){
-  target <- target %>% tolower(.) %>% trimws(.)
-  ref <- ref %>% tolower(.) %>% trimws(.)
-  vecs_target <- allvectors(target)
-  vecs_ref <- allvectors(ref)
-  timespan<- timespan_from_t(t)
-  cos <- cosines(target, ref, vecs_target, vecs_ref, timespan)
-  cosines_as_vector <- t(cos)%>% as.double %>% as.vector(.)
-  #print(cosines_as_vector)
-  if( sum(!is.na(cosines_as_vector))<5){
-  correct <- NA
-  }
-  else{
-  corr <- cor.test(cosines_as_vector, timespan, alternative = "two.sided", method = "spearman", exact=FALSE) #exact=TRUE gives error beccause of ties
+correlation <- function(arg1, arg2, gold){ #correlate arg1 and arg2 and compare sign of correlation with gold. 
+  corr <- cor.test(arg1, arg2, alternative = "two.sided", method = "spearman", exact=FALSE) #exact=TRUE gives error beccause of ties
   correlation_factor <- corr$estimate #(1,2) could also be (2,1). same thing.
-  print(correlation_factor)
   correlation_size <- abs(correlation_factor)
   p_value <- corr$p.value
   sig <- ifelse(p_value <= 0.05, 1, 0)
   direction_of_corr <-  ifelse(correlation_factor > 0, 1, -1)
   correct <- ifelse(direction_of_corr == gold, 1, 0)
+  result <- list(correct, sig, p_value, correlation_size)
+  names(result) <- c("correct", "sig", "p", "corr")
+  return(result)
+}
+
+
+evaluate_my_way <- function(target, ref, t, gold, vectordir){
+  target <- target %>% tolower(.) %>% trimws(.)
+  ref <- ref %>% tolower(.) %>% trimws(.)
+  vecs_target <- allvectors(target, vectordir)
+  vecs_ref <- allvectors(ref, vectordir)
+  timespan<- timespan_from_t(t)
+  cos <- cosines(target, ref, vecs_target, vecs_ref, timespan)
+  cosines_as_vector <- t(cos)%>% as.double %>% as.vector(.)
+  #print(cosines_as_vector)
+  if( sum(!is.na(cosines_as_vector))<5){
+  result <- list(NA,NA,NA,NA)
+  }
+  else{
+  result <- correlation(cosines_as_vector, timespan, gold) #exact=TRUE gives error beccause of ties
   }#end else
-  return(correct)
+  names(result) <- c("correct", "sig", "p", "corr")
+  return(result)
+  #return(cbind(correct = correct, sig = sig, p = p_value, corr = correlation_size))
+  #return(correct)
 }
 
 
