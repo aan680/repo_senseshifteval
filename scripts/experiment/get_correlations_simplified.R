@@ -121,7 +121,7 @@ evaluate_synset_by_average_vector<- function(df, correct_column="correct",corpus
 		timespan <- timespan_from_t(u(df$t)) %>% c(.)
 		synset <- u(df$synset)
 
-		if(opt$corpus=="coha"){
+		if(opt$corpus=="coha"|opt$corpus=="COHA"){
 		timespan_vectors <- seq(1810,1990,10)
 		timespan <- intersect(timespan, timespan_vectors) %>% c(.)
 		}
@@ -241,32 +241,38 @@ N_valid <- function(col){
 	return(N_valid)
 }
 
+senseshifteval <- function(results){ #takes as argument the the wordshifteval results!
+	synset_dfs<- split(results, list(as.character(results$synset), results$target, results$t), drop=TRUE)
+	print("split into DFs")
+	resultslist <- lapply(synset_dfs, function(x) evaluate_one_synset(x)) 
+        print("collected all results")
+	all <- do.call(rbind, resultslist)
+	write.csv(all, file=paste("results/", opt$corpus, "senseshifteval_", opt$dataset, ".csv",sep=""))
+	all <- as.data.frame(all)
+	summary <- c(accuracy(all$correct_by_avg), accuracy(all$correct_by_maxcorr), accuracy(all$correct_by_majorityvote), accuracy(all$correct_by_minp))  
+	names(summary) <- c('average_vector', 'argmax_corr', 'correct_by_vote', 'correct_by_minp')
+	N <- apply(all, 2, N_valid)
+	names(N) <- names(N) %>% paste("N_",.,sep="")
+	summary_and_N <- c(summary,N) %>% as.data.frame(ncol=1)
+	write.table(summary_and_N, file=paste("results/", opt$corpus, "summary_senseshifteval_", opt$dataset, ".csv",sep=""))
+}
+
+#unless we are dealing with HW, proceed to the sense shift eval
+if(opt$dataset!="HW"){senseshifteval(results)} #as HW has no synsets
 
 #SENSE SHIFT EVAL
 #to test: results <- read.csv("results/wordshifteval_HW+.csv")
+#or on HT: results <- read.csv("results/SGNSwordshifteval_HT.csv")
 #or, directly: df <- synset_dfs$gay.s.05.gay.1950
 #to test avg vector: df <- synset_dfs$air.v.03.broadcast.1920
-synset_dfs<- split(results, list(as.character(results$synset), results$target, results$t), drop=TRUE)
-resultslist <- lapply(synset_dfs, function(x) evaluate_one_synset(x)) 
-all <- do.call(rbind, resultslist)
-write.csv(all, file=paste("results/", opt$corpus, "senseshifteval_", opt$dataset, ".csv",sep=""))
-all <- as.data.frame(all)
-summary <- c(accuracy(all$correct_by_avg), accuracy(all$correct_by_maxcorr), accuracy(all$correct_by_majorityvote), accuracy(all$correct_by_minp))  
-names(summary) <- c('average_vector', 'argmax_corr', 'correct_by_vote', 'correct_by_minp')
-N <- apply(all, 2, N_valid)
-names(N) <- names(N) %>% paste("N_",.,sep="")
-summary_and_N <- c(summary,N) %>% as.data.frame(ncol=1)
-
-write.table(summary_and_N, file=paste("results/", opt$corpus, "summary_senseshifteval_", opt$dataset, ".csv",sep=""))
-
 
 
 ####################################################################
 ####FYI
-#this is the method by HW. Beware: missing observations treated as zeros
+#this is the method of word shift eval by HW. Beware: missing observations treated as zeros
 #these results were not reported but good as a reference
 results_hw <- apply(input, 1, function(x) evaluate_by_hw(x["target"], x["ref"], as.numeric(x["t"]), as.numeric(x["gold"]), opt$dir_hw_vectors)) %>% do.call(rbind, .) %>% cbind(input, .)
-apply(results_hw,2,as.character) %>% write.csv(., file=paste("results/", opt$corpus, "hw_wordshifteval_", opt$dataset, ".csv",sep=""))
+apply(results_hw,2,unlist) %>% write.csv(., file=paste("results/", opt$corpus, "hw_wordshifteval_", opt$dataset, ".csv",sep=""))
 
 
 
