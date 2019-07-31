@@ -31,6 +31,7 @@ freq_above_min <- function(word, time, df_freq = freqs){ #is the freq of the wor
 
 
 allvectors <- function(word, dir_vectors){
+	word <- word %>% tolower(.) %>% trimws(.) ##!crucial! added this just now
 	filepath <- word %>% paste(., "_dia.csv", sep ="") %>% file.path(dir_vectors, .) 
 	if(!file.exists(filepath)){stop(filepath, " does not exist")}
 	allvectors <- read.csv(filepath, header=TRUE)
