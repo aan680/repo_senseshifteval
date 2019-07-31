@@ -235,6 +235,12 @@ accuracy <- function(col){
 	return(100*(N_correct/N_valid))
 }
 
+N_valid <- function(col){
+	col <- unlist(col)
+	N_valid <- sum(!is.na(col))
+	return(N_valid)
+}
+
 
 #SENSE SHIFT EVAL
 #to test: results <- read.csv("results/wordshifteval_HW+.csv")
@@ -245,8 +251,13 @@ resultslist <- lapply(synset_dfs, function(x) evaluate_one_synset(x))
 all <- do.call(rbind, resultslist)
 write.csv(all, file=paste("results/", opt$corpus, "senseshifteval_", opt$dataset, ".csv",sep=""))
 all <- as.data.frame(all)
-summary <- rbind(accuracy(all$correct_by_avg), accuracy(all$correct_by_maxcorr), accuracy(all$correct_by_majorityvote), accuracy(all$correct_by_minp)) %>% cbind(c('average_vector', 'argmax_corr', 'correct_by_vote', 'correct_by_minp'), .)
-write.table(summary, file=paste("results/", opt$corpus, "summary_senseshifteval_", opt$dataset, ".csv",sep=""))
+summary <- c(accuracy(all$correct_by_avg), accuracy(all$correct_by_maxcorr), accuracy(all$correct_by_majorityvote), accuracy(all$correct_by_minp))  
+names(summary) <- c('average_vector', 'argmax_corr', 'correct_by_vote', 'correct_by_minp')
+N <- apply(all, 2, N_valid)
+names(N) <- names(N) %>% paste("N_",.,sep="")
+summary_and_N <- c(summary,N) %>% as.data.frame(ncol=1)
+
+write.table(summary_and_N, file=paste("results/", opt$corpus, "summary_senseshifteval_", opt$dataset, ".csv",sep=""))
 
 
 
