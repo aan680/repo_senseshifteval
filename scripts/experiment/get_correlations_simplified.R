@@ -11,7 +11,7 @@ option_list = list(
   make_option(c("--add_stats"),    action="store", default= TRUE, help="whether to add the lexical data stats, only possible if synset column present")
 )
 opt = parse_args(OptionParser(option_list=option_list))
-
+print(opt) 
 
 source_python("scripts/experiment/pickle_reader.py")
 source_python("scripts/dataset_creation/wn_stats.py")
@@ -119,22 +119,22 @@ evaluate_synset_by_average_vector<- function(df, correct_column="correct",corpus
 		df <- subset(df, ! is.na(df[[correct_column]])) #!!!!! do this to prevent computations with NA values
 		words <- df[,c("ref")] %>% as.list(.) #%>% print(.)
 		timespan <- timespan_from_t(u(df$t)) %>% c(.)
-		synset <- u(df$synset)
+		synset <- u(df$synset) %>% as.character()
+		print(synset)
 
 		if(opt$corpus=="coha"|opt$corpus=="COHA"){
 		timespan_vectors <- seq(1810,1990,10)
 		timespan <- intersect(timespan, timespan_vectors) %>% c(.)
-		}
-		else{
+		} else{
 		timespan_vectors <- seq(1800,1990,10)
 		}
 
 		#! some matrices have 0 rows, remove these from the list
-		matrices <- lapply(words, function(x) allvectors(x, opt$dir_downloaded_vectors)) %>% lapply(., function(df) df<- subset(df, select = -c(w,t))) %>% Filter(function(x) nrow(x) > 0, .)
+		matrices <- lapply(words, function(x) allvectors(x, opt$dir_downloaded_vectors)) %>% lapply(., function(df) df<- subset(df, select = -c(w,t))) %>% Filter(function(x) nrow(x) > 0, .)#chuck off the non-numerical columms to be able to calculate average
 			
 
 		if(length(matrices)>1){
-			refs_average_time_vecs <- average_matrix(matrices) %>% cbind.data.frame(t = timespan_vectors, ., check.rows=TRUE) %>% cbind.data.frame(w = synset, .) #
+			refs_average_time_vecs <- average_matrix(matrices) %>% cbind.data.frame(t = timespan_vectors, ., check.rows=TRUE) %>% cbind.data.frame(w = synset, .) #now reappend the w column, which we need, because the cosine method will subset the df by the w column
 	
 			target_time_vecs <- allvectors(u(df$target), opt$dir_downloaded_vectors)
   			costimeseries<-cosines(u(df$target), synset, target_time_vecs, refs_average_time_vecs, timespan)
@@ -163,8 +163,8 @@ evaluate_synset_by_average_vector<- function(df, correct_column="correct",corpus
 ##############################
 
 evaluate_one_synset <-function(df, correct_column="correct"){ #df holds one synset. #correct_column is either correct_my or correct_HW
-	correct_by_avg <- df %>% evaluate_synset_by_average_vector(.)
-        df <- as.data.frame(lapply(df, unlist))
+	correct_by_avg <- evaluate_synset_by_average_vector(df)
+        df <- as.data.frame(lapply(df, unlist)) #try without this line
 	print(df)
 	target <- unique(df$target) #or just df$target?
 	synset <- unique(df$synset) #or just df$synset?
@@ -242,7 +242,11 @@ N_valid <- function(col){
 }
 
 senseshifteval <- function(results){ #takes as argument the the wordshifteval results!
-	synset_dfs<- split(results, list(as.character(results$synset), results$target, results$t), drop=TRUE)
+	if(opt$dataset=="HT"){
+		synset_dfs <- split(results, list(as.character(results$synset), results$target, results$t, results$id), drop=TRUE) #several terms with same synset at t
+	}else{
+		synset_dfs<- split(results, list(as.character(results$synset), results$target, results$t), drop=TRUE)
+	}
 	print("split into DFs")
 	resultslist <- lapply(synset_dfs, function(x) evaluate_one_synset(x)) 
         print("collected all results")
@@ -257,6 +261,7 @@ senseshifteval <- function(results){ #takes as argument the the wordshifteval re
 	write.table(summary_and_N, file=paste("results/", opt$corpus, "summary_senseshifteval_", opt$dataset, ".csv",sep=""))
 }
 
+
 #unless we are dealing with HW, proceed to the sense shift eval
 if(opt$dataset!="HW"){senseshifteval(results)} #as HW has no synsets
 
@@ -270,9 +275,10 @@ if(opt$dataset!="HW"){senseshifteval(results)} #as HW has no synsets
 ####################################################################
 ####FYI
 #this is the method of word shift eval by HW. Beware: missing observations treated as zeros
-#these results were not reported but good as a reference
-results_hw <- apply(input, 1, function(x) evaluate_by_hw(x["target"], x["ref"], as.numeric(x["t"]), as.numeric(x["gold"]), opt$dir_hw_vectors)) %>% do.call(rbind, .) %>% cbind(input, .)
-apply(results_hw,2,unlist) %>% write.csv(., file=paste("results/", opt$corpus, "hw_wordshifteval_", opt$dataset, ".csv",sep=""))
+#these results were not reported but good as a reference and cross-check
+
+#results_hw <- apply(input, 1, function(x) evaluate_by_hw(x["target"], x["ref"], as.numeric(x["t"]), as.numeric(x["gold"]), opt$dir_hw_vectors)) %>% do.call(rbind, .) %>% cbind(input, .)
+#apply(results_hw,2,unlist) %>% write.csv(., file=paste("results/", opt$corpus, "hw_wordshifteval_", opt$dataset, ".csv",sep=""))
 
 
 
