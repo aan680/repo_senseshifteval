@@ -1,19 +1,19 @@
 
 require("reticulate") #for importing python objects
 
-source_python("scripts/wn_stats.py")
+source_python("scripts/dataset_creation/wn_stats.py")
 
 
 ###############################################
-#Let's say more than 2 synsets means polysemous (high)
+
 
 threshold <- 3
 
 
-
 ###functions###
 
-resultfile <- function(dataset) {paste("/ufs/aggelen/SenseShiftEval/lsaresults_with_t_col_in_synsetresults/", dataset, "/eng-all/results_directional=FALSE_minfreqs_0-5.csv", sep="")}
+)
+
 
 
 add_polysemy_cols <- function(df){ #this uses the function polysemy from the python file
@@ -22,33 +22,46 @@ add_polysemy_cols <- function(df){ #this uses the function polysemy from the pyt
 	return(df)
 }
 
+summarize <- function(col){
+	#return(table(col))
+	return(100*sum(col)/(sum(col==0)+sum(col)))
+}
 
 high <- function(x) {x > threshold}
 low <- function(x) {x <= threshold}
-poly_poly <- function(df) {df[high(df$polysemy_target) & high(df$polysemy_ref),"correct"] %>% table()}
-poly_nonpoly <- function(df) {df[high(df$polysemy_target) & low(df$polysemy_ref),"correct"] %>% table()}
-nonpoly_nonpoly <- function(df) {df[low(df$polysemy_target) & low(df$polysemy_ref),"correct"] %>% table()}
-nonpoly_poly <- function(df) {df[low(df$polysemy_target) & high(df$polysemy_ref),"correct"] %>% table()}
+poly_poly <- function(df) {df[high(df$polysemy_target) & high(df$polysemy_ref),"correct"] %>%summarize()}
+poly_nonpoly <- function(df) {df[high(df$polysemy_target) & low(df$polysemy_ref),"correct"] %>% summarize()}
+nonpoly_nonpoly <- function(df) {df[low(df$polysemy_target) & low(df$polysemy_ref),"correct"] %>% summarize()}
+nonpoly_poly <- function(df) {df[low(df$polysemy_target) & high(df$polysemy_ref),"correct"] %>% summarize()}
 
 
-get_polysemy_and_summarise <- function(dataset){
-	resultfile <- resultfile(dataset)
-	df <- read.csv(resultfile, sep =",", header=T) %>% unique(.) %>% .[!is.na(.$correlation_factor),]
-	print(sum(!is.na(df$correlation_factor)))
-	#nr_nonna <- nrow(df[!is.na(df$correlation_factor),])
-	#print(nr_nonna)
-	df <- add_polysemy_cols(df)
+get_polysemy_and_summarise <- function(resultfile){
+	df <- read.csv(resultfile, sep =",", header=T) %>% unique(.) %>% .[!is.na(.$corr),]
+	N <- nrow(df)
+	#df <- add_polysemy_cols(df)
 	#print(df)
-	print(poly_poly(df))
-	print(poly_nonpoly(df))
 	print(nonpoly_nonpoly(df))
 	print(nonpoly_poly(df))
+	print(poly_nonpoly(df))
+	print(poly_poly(df))
 	#return(df)
 }
 ################
 
 
 #MAIN
+
+resultfile <- function(corpus, dataset) {paste("/ufs/aggelen/repl_SenseShiftEval/results/", corpus, "wordshifteval_", dataset, ".csv",sep="")}
+
+ht <- resultfile("SGNS", "HT") %>% get_polysemy_and_summarise(.)
+
+
+
+
+
+#################################
+
+
 
 
 hwwn <- get_polysemy_and_summarise("hw_wn")
