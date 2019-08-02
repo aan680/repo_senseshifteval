@@ -50,7 +50,7 @@ select_vector<- function(df){  #from row
   return(as.vector(v))
 }
 
-vector_t <- function(allvectors, time){
+vector_t <- function(allvectors, time){ 
 	vector_at_t <- allvectors[which(allvectors$t == time),] %>% select_vector(.) %>% as.numeric %>% as.vector(.)
 	return(vector_at_t)
 
