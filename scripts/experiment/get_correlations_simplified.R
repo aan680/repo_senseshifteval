@@ -122,7 +122,7 @@ evaluate_synset_by_average_vector<- function(df, correct_column="correct",corpus
 		synset <- u(df$synset) %>% as.character()
 		print(synset)
 
-		if(opt$corpus=="coha"|opt$corpus=="COHA"){
+		if(corpus=="coha"|corpus=="COHA"){
 		timespan_vectors <- seq(1810,1990,10)
 		timespan <- intersect(timespan, timespan_vectors) %>% c(.)
 		} else{
@@ -242,11 +242,11 @@ N_valid <- function(col){
 }
 
 senseshifteval <- function(results){ #takes as argument the the wordshifteval results!
-	if(opt$dataset=="HT"){
-		synset_dfs <- split(results, list(as.character(results$synset), results$target, results$t, results$id), drop=TRUE) #several terms with same synset at t
-	}else{
-		synset_dfs<- split(results, list(as.character(results$synset), results$target, results$t), drop=TRUE)
-	}
+	#if(opt$dataset=="HT"){
+	#	synset_dfs <- split(results, list(as.character(results$synset), results$target, results$t, results$id), drop=TRUE) #several terms with same synset at t
+	#}else{
+	synset_dfs<- split(results, list(as.character(results$synset), results$target, results$t, results$gold), drop=TRUE)
+	#}
 	print("split into DFs")
 	resultslist <- lapply(synset_dfs, function(x) evaluate_one_synset(x)) 
         print("collected all results")
