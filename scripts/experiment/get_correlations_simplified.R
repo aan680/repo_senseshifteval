@@ -172,7 +172,7 @@ evaluate_one_synset <-function(df, correct_column="correct"){ #df holds one syns
 	if(nrow(df)<2){ #if just one word pair no aggregations possible
 	return(list(target, synset, t, NA,NA,NA,NA))
 	}
-	correct_by_maxcorr <- df[order(-as.numeric(df$corr)),] %>% .[1,] %>% .[[correct_column]] #descending so negative
+	correct_by_maxcorr <- df[order(-as.numeric(abs(df$corr))),] %>% .[1,] %>% .[[correct_column]] #descending so negative
 	correct_by_minp <- df[order(df$p),] %>% .[1,] %>% .[[correct_column]] #ascending
 	correct_by_majorityvote <- df %>%  .[[correct_column]] %>% modal(.,  ties='lowest', na.rm=TRUE, freq=FALSE)
 	result <- list(target, synset, t, correct_by_maxcorr, correct_by_minp, correct_by_majorityvote, correct_by_avg)
