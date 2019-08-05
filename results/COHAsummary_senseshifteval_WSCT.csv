@@ -1,0 +1,12 @@
+"."
+"average_vector" 50
+"argmax_corr" 100
+"correct_by_vote" 80
+"correct_by_minp" 80
+"N_target" 23
+"N_synset" 23
+"N_t" 23
+"N_correct_by_maxcorr" 5
+"N_correct_by_minp" 5
+"N_correct_by_majorityvote" 5
+"N_correct_by_avg" 2

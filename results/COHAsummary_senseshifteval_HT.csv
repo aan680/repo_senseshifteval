@@ -1,0 +1,12 @@
+"."
+"average_vector" 44.1176470588235
+"argmax_corr" 37.0503597122302
+"correct_by_vote" 35.9712230215827
+"correct_by_minp" 46.7625899280576
+"N_target" 979
+"N_synset" 979
+"N_t" 979
+"N_correct_by_maxcorr" 278
+"N_correct_by_minp" 278
+"N_correct_by_majorityvote" 278
+"N_correct_by_avg" 204
