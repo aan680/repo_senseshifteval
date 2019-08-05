@@ -9,10 +9,10 @@
 "cheery.s.01.gay.1950.-1",gay,cheery.s.01,1950,1,1,1,1
 "gay.s.02.gay.1950.-1",gay,gay.s.02,1950,1,1,1,1
 "gay.s.05.gay.1950.-1",gay,gay.s.05,1950,1,1,1,NA
-"atrocious.s.02.awful.1800.1",awful,atrocious.s.02,1800,1,0,0,0
-"awful.s.02.awful.1800.1",awful,awful.s.02,1800,1,0,0,0
+"atrocious.s.02.awful.1800.1",awful,atrocious.s.02,1800,0,0,0,0
+"awful.s.02.awful.1800.1",awful,awful.s.02,1800,0,0,0,0
 "nasty.a.01.awful.1800.1",awful,nasty.a.01,1800,NA,NA,NA,NA
-"black.s.06.fatal.1800.1",fatal,black.s.06,1800,1,0,0,1
+"black.s.06.fatal.1800.1",fatal,black.s.06,1800,0,0,0,1
 "guy.n.01.guy.1850.1",guy,guy.n.01,1850,1,1,1,NA
 "call.v.03.call.1890.1",call,call.v.03,1890,1,1,1,1
 "air.v.03.broadcast.1920.1",broadcast,air.v.03,1920,NA,NA,NA,NA

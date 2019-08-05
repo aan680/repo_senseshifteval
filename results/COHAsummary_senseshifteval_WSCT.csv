@@ -1,6 +1,6 @@
 "."
 "average_vector" 50
-"argmax_corr" 100
+"argmax_corr" 80
 "correct_by_vote" 80
 "correct_by_minp" 80
 "N_target" 23
