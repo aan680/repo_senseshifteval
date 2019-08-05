@@ -82,13 +82,13 @@ timespan_from_t <- function(t) {
 
 correlation <- function(arg1, arg2, gold){ #correlate arg1 and arg2 and compare sign of correlation with gold. 
   corr <- cor.test(arg1, arg2, alternative = "two.sided", method = "spearman", exact=FALSE) #exact=TRUE gives error beccause of ties
-  correlation_factor <- corr$estimate #(1,2) could also be (2,1). same thing.
-  correlation_size <- abs(correlation_factor)
+  correlation_factor <- corr$estimate #could also be (2,1). same thing.
+  names(correlation_factor) <- c() #somehow is called rho, this is annoying when writing to file
   p_value <- corr$p.value
   sig <- ifelse(p_value <= 0.05, 1, 0)
   direction_of_corr <-  ifelse(correlation_factor > 0, 1, -1)
   correct <- ifelse(direction_of_corr == gold, 1, 0)
-  result <- list(correct, sig, p_value, correlation_size)
+  result <- list(correct, sig, p_value, correlation_factor)
   names(result) <- c("correct", "sig", "p", "corr")
   return(result)
 }
