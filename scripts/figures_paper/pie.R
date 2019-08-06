@@ -5,7 +5,7 @@ library(Hmisc)
 library(magrittr)
 library(plotly)
 
-resultfile <- "/ufs/aggelen/repl_SenseShiftEval/results_paper/SGNSwordshifteval_HT.csv"
+resultfile <- "/ufs/aggelen/repl_SenseShiftEval/results/SGNSwordshifteval_HT.csv"
 
 output <- read.csv(resultfile, header=T) %>% unique(.) #, stringsAsFactors=FALSE) # load file
 
@@ -44,7 +44,7 @@ z <- cut(proportion_correct, c(-0.1,0.1,0.49,0.51,0.9,1.1))
 
 png(file = "/ufs/aggelen/repl_SenseShiftEval/figures/pie.png")
 
-labels <- c("none correct","under 50% correct", "50% correct", "over 50% correct", "all correct")
+labels <- c("none correct","mostly false", "50% correct", "mostly correct", "all correct")
 pcts <- round(table(z)*100/sum(table(z)),0)
 label_and_pct <-  paste(labels, ": ", pcts, "%",sep="") # ad % to labels
 
