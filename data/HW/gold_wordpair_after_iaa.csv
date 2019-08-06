@@ -1,0 +1,189 @@
+"","target","synset","t","ref","pos","ref.1","synset_size","synset_words","wn_pos","gold"
+"1","awful","amazing.s.02",1800,"mess","adj",NA,5,"['amazing', 'awe-inspiring', 'awesome', 'awful', 'awing']","s",-1
+"2","awful","amazing.s.02",1800,"impressive","adj",NA,5,"['amazing', 'awe-inspiring', 'awesome', 'awful', 'awing']","s",-1
+"3","awful","amazing.s.02",1800,"disgusting","adj",NA,5,"['amazing', 'awe-inspiring', 'awesome', 'awful', 'awing']","s",-1
+"4","awful","amazing.s.02",1800,"majestic","adj",NA,5,"['amazing', 'awe-inspiring', 'awesome', 'awful', 'awing']","s",-1
+"5","awful","atrocious.s.02",1800,"disgusting","adj",NA,7,"['atrocious', 'abominable', 'awful', 'dreadful', 'painful', 'terrible', 'unspeakable']","s",1
+"6","awful","atrocious.s.02",1800,"majestic","adj",NA,7,"['atrocious', 'abominable', 'awful', 'dreadful', 'painful', 'terrible', 'unspeakable']","s",1
+"7","awful","atrocious.s.02",1800,"mess","adj",NA,7,"['atrocious', 'abominable', 'awful', 'dreadful', 'painful', 'terrible', 'unspeakable']","s",1
+"8","awful","atrocious.s.02",1800,"impressive","adj",NA,7,"['atrocious', 'abominable', 'awful', 'dreadful', 'painful', 'terrible', 'unspeakable']","s",1
+"9","awful","awed.s.01",1800,"disgusting","adj",NA,2,"['awed', 'awful']","s",-1
+"10","awful","awed.s.01",1800,"mess","adj",NA,2,"['awed', 'awful']","s",-1
+"11","awful","awed.s.01",1800,"impressive","adj",NA,2,"['awed', 'awful']","s",-1
+"12","awful","awed.s.01",1800,"majestic","adj",NA,2,"['awed', 'awful']","s",-1
+"13","awful","awful.s.02",1800,"mess","adj",NA,12,"['awful', 'dire', 'direful', 'dread', 'dreaded', 'dreadful', 'fearful', 'fearsome', 'frightening', 'horrendous', 'horrific', 'terrible']","s",1
+"14","awful","awful.s.02",1800,"disgusting","adj",NA,12,"['awful', 'dire', 'direful', 'dread', 'dreaded', 'dreadful', 'fearful', 'fearsome', 'frightening', 'horrendous', 'horrific', 'terrible']","s",1
+"15","awful","awful.s.02",1800,"majestic","adj",NA,12,"['awful', 'dire', 'direful', 'dread', 'dreaded', 'dreadful', 'fearful', 'fearsome', 'frightening', 'horrendous', 'horrific', 'terrible']","s",1
+"16","awful","awful.s.02",1800,"impressive","adj",NA,12,"['awful', 'dire', 'direful', 'dread', 'dreaded', 'dreadful', 'fearful', 'fearsome', 'frightening', 'horrendous', 'horrific', 'terrible']","s",1
+"17","awful","frightful.s.02",1800,"mess","adj",NA,4,"['frightful', 'terrible', 'awful', 'tremendous']","s",0
+"18","awful","frightful.s.02",1800,"disgusting","adj",NA,4,"['frightful', 'terrible', 'awful', 'tremendous']","s",0
+"19","awful","frightful.s.02",1800,"majestic","adj",NA,4,"['frightful', 'terrible', 'awful', 'tremendous']","s",0
+"20","awful","frightful.s.02",1800,"impressive","adj",NA,4,"['frightful', 'terrible', 'awful', 'tremendous']","s",0
+"21","awful","nasty.a.01",1800,"disgusting","adj",NA,2,"['nasty', 'awful']","a",1
+"22","awful","nasty.a.01",1800,"mess","adj",NA,2,"['nasty', 'awful']","a",1
+"23","awful","nasty.a.01",1800,"impressive","adj",NA,2,"['nasty', 'awful']","a",1
+"24","awful","nasty.a.01",1800,"majestic","adj",NA,2,"['nasty', 'awful']","a",1
+"25","broadcast","air.v.03",1920,"transmit","v",NA,5,"['air', 'send', 'broadcast', 'beam', 'transmit']","v",1
+"26","broadcast","air.v.03",1920,"seed","v",NA,5,"['air', 'send', 'broadcast', 'beam', 'transmit']","v",1
+"27","broadcast","air.v.03",1920,"scatter","v",NA,5,"['air', 'send', 'broadcast', 'beam', 'transmit']","v",1
+"28","broadcast","air.v.03",1920,"radio","v",NA,5,"['air', 'send', 'broadcast', 'beam', 'transmit']","v",1
+"29","broadcast","broadcast.v.02",1920,"radio","v",NA,1,"['broadcast']","v",-1
+"30","broadcast","broadcast.v.02",1920,"transmit","v",NA,1,"['broadcast']","v",-1
+"31","broadcast","broadcast.v.02",1920,"seed","v",NA,1,"['broadcast']","v",-1
+"32","broadcast","broadcast.v.02",1920,"scatter","v",NA,1,"['broadcast']","v",-1
+"33","broadcast","circulate.v.02",1920,"scatter","v",NA,11,"['circulate', 'circularize', 'circularise', 'distribute', 'disseminate', 'propagate', 'broadcast', 'spread', 'diffuse', 'disperse', 'pass_around']","v",0
+"34","broadcast","circulate.v.02",1920,"radio","v",NA,11,"['circulate', 'circularize', 'circularise', 'distribute', 'disseminate', 'propagate', 'broadcast', 'spread', 'diffuse', 'disperse', 'pass_around']","v",0
+"35","broadcast","circulate.v.02",1920,"transmit","v",NA,11,"['circulate', 'circularize', 'circularise', 'distribute', 'disseminate', 'propagate', 'broadcast', 'spread', 'diffuse', 'disperse', 'pass_around']","v",0
+"36","broadcast","circulate.v.02",1920,"seed","v",NA,11,"['circulate', 'circularize', 'circularise', 'distribute', 'disseminate', 'propagate', 'broadcast', 'spread', 'diffuse', 'disperse', 'pass_around']","v",0
+"37","call","address.v.06",1890,"message","v",NA,2,"['address', 'call']","v",0
+"38","call","address.v.06",1890,"phone","v",NA,2,"['address', 'call']","v",0
+"39","call","bid.v.04",1890,"phone","v",NA,2,"['bid', 'call']","v",0
+"40","call","bid.v.04",1890,"message","v",NA,2,"['bid', 'call']","v",0
+"41","call","call.v.02",1890,"phone","v",NA,1,"['call']","v",0
+"42","call","call.v.02",1890,"message","v",NA,1,"['call']","v",0
+"43","call","call.v.03",1890,"message","v",NA,5,"['call', 'telephone', 'call_up', 'phone', 'ring']","v",1
+"44","call","call.v.03",1890,"phone","v",NA,5,"['call', 'telephone', 'call_up', 'phone', 'ring']","v",1
+"45","call","call.v.05",1890,"message","v",NA,2,"['call', 'send_for']","v",0
+"46","call","call.v.05",1890,"phone","v",NA,2,"['call', 'send_for']","v",0
+"47","call","call.v.07",1890,"message","v",NA,1,"['call']","v",0
+"48","call","call.v.07",1890,"phone","v",NA,1,"['call']","v",0
+"49","call","call.v.08",1890,"message","v",NA,1,"['call']","v",0
+"50","call","call.v.08",1890,"phone","v",NA,1,"['call']","v",0
+"51","call","call.v.09",1890,"message","v",NA,1,"['call']","v",1
+"52","call","call.v.09",1890,"phone","v",NA,1,"['call']","v",1
+"53","call","call.v.10",1890,"phone","v",NA,1,"['call']","v",0
+"54","call","call.v.10",1890,"message","v",NA,1,"['call']","v",0
+"55","call","call.v.11",1890,"message","v",NA,1,"['call']","v",0
+"56","call","call.v.11",1890,"phone","v",NA,1,"['call']","v",0
+"57","call","call.v.13",1890,"message","v",NA,1,"['call']","v",0
+"58","call","call.v.13",1890,"phone","v",NA,1,"['call']","v",0
+"59","call","call.v.14",1890,"phone","v",NA,2,"['call', 'call_in']","v",0
+"60","call","call.v.14",1890,"message","v",NA,2,"['call', 'call_in']","v",0
+"61","call","call.v.16",1890,"message","v",NA,2,"['call', 'call_off']","v",0
+"62","call","call.v.16",1890,"phone","v",NA,2,"['call', 'call_off']","v",0
+"63","call","call.v.17",1890,"message","v",NA,1,"['call']","v",0
+"64","call","call.v.17",1890,"phone","v",NA,1,"['call']","v",0
+"65","call","call.v.19",1890,"phone","v",NA,1,"['call']","v",0
+"66","call","call.v.19",1890,"message","v",NA,1,"['call']","v",0
+"67","call","call.v.20",1890,"message","v",NA,1,"['call']","v",0
+"68","call","call.v.20",1890,"phone","v",NA,1,"['call']","v",0
+"69","call","call.v.21",1890,"message","v",NA,1,"['call']","v",0
+"70","call","call.v.21",1890,"phone","v",NA,1,"['call']","v",0
+"71","call","call.v.22",1890,"message","v",NA,1,"['call']","v",0
+"72","call","call.v.22",1890,"phone","v",NA,1,"['call']","v",0
+"73","call","call.v.23",1890,"phone","v",NA,1,"['call']","v",0
+"74","call","call.v.23",1890,"message","v",NA,1,"['call']","v",0
+"75","call","call.v.24",1890,"message","v",NA,1,"['call']","v",0
+"76","call","call.v.24",1890,"phone","v",NA,1,"['call']","v",0
+"77","call","call.v.25",1890,"message","v",NA,1,"['call']","v",0
+"78","call","call.v.25",1890,"phone","v",NA,1,"['call']","v",0
+"79","call","call.v.26",1890,"message","v",NA,1,"['call']","v",0
+"80","call","call.v.26",1890,"phone","v",NA,1,"['call']","v",0
+"81","call","call.v.27",1890,"phone","v",NA,1,"['call']","v",0
+"82","call","call.v.27",1890,"message","v",NA,1,"['call']","v",0
+"83","call","call.v.28",1890,"phone","v",NA,1,"['call']","v",0
+"84","call","call.v.28",1890,"message","v",NA,1,"['call']","v",0
+"85","call","name.v.01",1890,"phone","v",NA,2,"['name', 'call']","v",0
+"86","call","name.v.01",1890,"message","v",NA,2,"['name', 'call']","v",0
+"87","call","predict.v.01",1890,"message","v",NA,7,"['predict', 'foretell', 'prognosticate', 'call', 'forebode', 'anticipate', 'promise']","v",0
+"88","call","predict.v.01",1890,"phone","v",NA,7,"['predict', 'foretell', 'prognosticate', 'call', 'forebode', 'anticipate', 'promise']","v",0
+"89","call","shout.v.02",1890,"message","v",NA,9,"['shout', 'shout_out', 'cry', 'call', 'yell', 'scream', 'holler', 'hollo', 'squall']","v",0
+"90","call","shout.v.02",1890,"phone","v",NA,9,"['shout', 'shout_out', 'cry', 'call', 'yell', 'scream', 'holler', 'hollo', 'squall']","v",0
+"91","call","visit.v.03",1890,"phone","v",NA,3,"['visit', 'call_in', 'call']","v",0
+"92","call","visit.v.03",1890,"message","v",NA,3,"['visit', 'call_in', 'call']","v",0
+"93","fatal","black.s.06",1800,"illness","adj",NA,5,"['black', 'calamitous', 'disastrous', 'fatal', 'fateful']","s",1
+"94","fatal","black.s.06",1800,"lethal","adj",NA,5,"['black', 'calamitous', 'disastrous', 'fatal', 'fateful']","s",1
+"95","fatal","black.s.06",1800,"fate","adj",NA,5,"['black', 'calamitous', 'disastrous', 'fatal', 'fateful']","s",1
+"96","fatal","black.s.06",1800,"inevitable","adj",NA,5,"['black', 'calamitous', 'disastrous', 'fatal', 'fateful']","s",1
+"97","fatal","fatal.a.01",1800,"illness","adj",NA,1,"['fatal']","a",1
+"98","fatal","fatal.a.01",1800,"lethal","adj",NA,1,"['fatal']","a",1
+"99","fatal","fatal.a.01",1800,"fate","adj",NA,1,"['fatal']","a",1
+"100","fatal","fatal.a.01",1800,"inevitable","adj",NA,1,"['fatal']","a",1
+"101","fatal","fatal.s.04",1800,"illness","adj",NA,2,"['fatal', 'fateful']","s",-1
+"102","fatal","fatal.s.04",1800,"lethal","adj",NA,2,"['fatal', 'fateful']","s",-1
+"103","fatal","fatal.s.04",1800,"fate","adj",NA,2,"['fatal', 'fateful']","s",-1
+"104","fatal","fatal.s.04",1800,"inevitable","adj",NA,2,"['fatal', 'fateful']","s",-1
+"105","fatal","fateful.s.01",1800,"illness","adj",NA,2,"['fateful', 'fatal']","s",0
+"106","fatal","fateful.s.01",1800,"lethal","adj",NA,2,"['fateful', 'fatal']","s",0
+"107","fatal","fateful.s.01",1800,"fate","adj",NA,2,"['fateful', 'fatal']","s",0
+"108","fatal","fateful.s.01",1800,"inevitable","adj",NA,2,"['fateful', 'fatal']","s",0
+"109","gay","brave.s.03",1950,"homosexual","adj",NA,3,"['brave', 'braw', 'gay']","s",-1
+"110","gay","brave.s.03",1950,"lesbian","adj",NA,3,"['brave', 'braw', 'gay']","s",-1
+"111","gay","brave.s.03",1950,"happy","adj",NA,3,"['brave', 'braw', 'gay']","s",-1
+"112","gay","brave.s.03",1950,"showy","adj",NA,3,"['brave', 'braw', 'gay']","s",-1
+"113","gay","cheery.s.01",1950,"homosexual","adj",NA,3,"['cheery', 'gay', 'sunny']","s",-1
+"114","gay","cheery.s.01",1950,"showy","adj",NA,3,"['cheery', 'gay', 'sunny']","s",-1
+"115","gay","cheery.s.01",1950,"lesbian","adj",NA,3,"['cheery', 'gay', 'sunny']","s",-1
+"116","gay","cheery.s.01",1950,"happy","adj",NA,3,"['cheery', 'gay', 'sunny']","s",-1
+"117","gay","gay.s.02",1950,"lesbian","adj",NA,6,"['gay', 'jocund', 'jolly', 'jovial', 'merry', 'mirthful']","s",-1
+"118","gay","gay.s.02",1950,"homosexual","adj",NA,6,"['gay', 'jocund', 'jolly', 'jovial', 'merry', 'mirthful']","s",-1
+"119","gay","gay.s.02",1950,"showy","adj",NA,6,"['gay', 'jocund', 'jolly', 'jovial', 'merry', 'mirthful']","s",-1
+"120","gay","gay.s.02",1950,"happy","adj",NA,6,"['gay', 'jocund', 'jolly', 'jovial', 'merry', 'mirthful']","s",-1
+"121","gay","gay.s.03",1950,"homosexual","adj",NA,1,"['gay']","s",0
+"122","gay","gay.s.03",1950,"lesbian","adj",NA,1,"['gay']","s",0
+"123","gay","gay.s.03",1950,"happy","adj",NA,1,"['gay']","s",0
+"124","gay","gay.s.03",1950,"showy","adj",NA,1,"['gay']","s",0
+"125","gay","gay.s.05",1950,"lesbian","adj",NA,4,"['gay', 'festal', 'festive', 'merry']","s",-1
+"126","gay","gay.s.05",1950,"homosexual","adj",NA,4,"['gay', 'festal', 'festive', 'merry']","s",-1
+"127","gay","gay.s.05",1950,"showy","adj",NA,4,"['gay', 'festal', 'festive', 'merry']","s",-1
+"128","gay","gay.s.05",1950,"happy","adj",NA,4,"['gay', 'festal', 'festive', 'merry']","s",-1
+"129","gay","gay.s.06",1950,"lesbian","adj",NA,3,"['gay', 'queer', 'homophile']","s",1
+"130","gay","gay.s.06",1950,"happy","adj",NA,3,"['gay', 'queer', 'homophile']","s",1
+"131","gay","gay.s.06",1950,"homosexual","adj",NA,3,"['gay', 'queer', 'homophile']","s",1
+"132","gay","gay.s.06",1950,"showy","adj",NA,3,"['gay', 'queer', 'homophile']","s",1
+"133","guy","guy.n.01",1850,"fellow","n",NA,4,"['guy', 'cat', 'hombre', 'bozo']","n",1
+"134","guy","guy.n.01",1850,"man","n",NA,4,"['guy', 'cat', 'hombre', 'bozo']","n",1
+"135","guy","guy.n.02",1850,"fellow","n",NA,1,"['Guy']","n",0
+"136","guy","guy.n.02",1850,"man","n",NA,1,"['Guy']","n",0
+"137","guy","guy.n.03",1850,"fellow","n",NA,4,"['guy', 'guy_cable', 'guy_wire', 'guy_rope']","n",0
+"138","guy","guy.n.03",1850,"man","n",NA,4,"['guy', 'guy_cable', 'guy_wire', 'guy_rope']","n",0
+"139","monitor","admonisher.n.01",1930,"display","n",NA,3,"['admonisher', 'monitor', 'reminder']","n",0
+"140","monitor","admonisher.n.01",1930,"screen","n",NA,3,"['admonisher', 'monitor', 'reminder']","n",0
+"141","monitor","monitor.n.03",1930,"display","n",NA,1,"['Monitor']","n",0
+"142","monitor","monitor.n.03",1930,"screen","n",NA,1,"['Monitor']","n",0
+"143","monitor","monitor.n.04",1930,"screen","n",NA,2,"['monitor', 'monitoring_device']","n",1
+"144","monitor","monitor.n.04",1930,"display","n",NA,2,"['monitor', 'monitoring_device']","n",1
+"145","monitor","monitor.n.05",1930,"display","n",NA,1,"['monitor']","n",0
+"146","monitor","monitor.n.05",1930,"screen","n",NA,1,"['monitor']","n",0
+"147","monitor","monitor.n.06",1930,"display","n",NA,1,"['monitor']","n",0
+"148","monitor","monitor.n.06",1930,"screen","n",NA,1,"['monitor']","n",0
+"149","monitor","monitor.n.07",1930,"display","n",NA,3,"['monitor', 'monitor_lizard', 'varan']","n",0
+"150","monitor","monitor.n.07",1930,"screen","n",NA,3,"['monitor', 'monitor_lizard', 'varan']","n",0
+"151","monitor","proctor.n.01",1930,"display","n",NA,2,"['proctor', 'monitor']","n",0
+"152","monitor","proctor.n.01",1930,"screen","n",NA,2,"['proctor', 'monitor']","n",0
+"153","nice","courteous.s.01",1890,"lovely","adj",NA,3,"['courteous', 'gracious', 'nice']","s",0
+"154","nice","courteous.s.01",1890,"pleasant","adj",NA,3,"['courteous', 'gracious', 'nice']","s",0
+"155","nice","courteous.s.01",1890,"refined","adj",NA,3,"['courteous', 'gracious', 'nice']","s",0
+"156","nice","courteous.s.01",1890,"dainty","adj",NA,3,"['courteous', 'gracious', 'nice']","s",0
+"157","nice","dainty.s.04",1890,"refined","adj",NA,5,"['dainty', 'nice', 'overnice', 'prissy', 'squeamish']","s",-1
+"158","nice","dainty.s.04",1890,"lovely","adj",NA,5,"['dainty', 'nice', 'overnice', 'prissy', 'squeamish']","s",-1
+"159","nice","dainty.s.04",1890,"dainty","adj",NA,5,"['dainty', 'nice', 'overnice', 'prissy', 'squeamish']","s",-1
+"160","nice","dainty.s.04",1890,"pleasant","adj",NA,5,"['dainty', 'nice', 'overnice', 'prissy', 'squeamish']","s",-1
+"161","nice","decent.s.01",1890,"dainty","adj",NA,2,"['decent', 'nice']","s",-1
+"162","nice","decent.s.01",1890,"pleasant","adj",NA,2,"['decent', 'nice']","s",-1
+"163","nice","decent.s.01",1890,"refined","adj",NA,2,"['decent', 'nice']","s",-1
+"164","nice","decent.s.01",1890,"lovely","adj",NA,2,"['decent', 'nice']","s",-1
+"165","nice","nice.a.01",1890,"pleasant","adj",NA,1,"['nice']","a",1
+"166","nice","nice.a.01",1890,"lovely","adj",NA,1,"['nice']","a",1
+"167","nice","nice.a.01",1890,"dainty","adj",NA,1,"['nice']","a",1
+"168","nice","nice.a.01",1890,"refined","adj",NA,1,"['nice']","a",1
+"169","nice","nice.s.03",1890,"dainty","adj",NA,2,"['nice', 'skillful']","s",-1
+"170","nice","nice.s.03",1890,"refined","adj",NA,2,"['nice', 'skillful']","s",-1
+"171","nice","nice.s.03",1890,"lovely","adj",NA,2,"['nice', 'skillful']","s",-1
+"172","nice","nice.s.03",1890,"pleasant","adj",NA,2,"['nice', 'skillful']","s",-1
+"173","record","criminal_record.n.01",1920,"tape","n",NA,2,"['criminal_record', 'record']","n",0
+"174","record","criminal_record.n.01",1920,"album","n",NA,2,"['criminal_record', 'record']","n",0
+"175","record","phonograph_record.n.01",1920,"tape","n",NA,6,"['phonograph_record', 'phonograph_recording', 'record', 'disk', 'disc', 'platter']","n",1
+"176","record","phonograph_record.n.01",1920,"album","n",NA,6,"['phonograph_record', 'phonograph_recording', 'record', 'disk', 'disc', 'platter']","n",1
+"177","record","record.n.01",1920,"tape","n",NA,1,"['record']","n",0
+"178","record","record.n.01",1920,"album","n",NA,1,"['record']","n",0
+"179","record","record.n.03",1920,"tape","n",NA,1,"['record']","n",0
+"180","record","record.n.03",1920,"album","n",NA,1,"['record']","n",0
+"181","record","record.n.04",1920,"tape","n",NA,2,"['record', 'track_record']","n",0
+"182","record","record.n.04",1920,"album","n",NA,2,"['record', 'track_record']","n",0
+"183","record","record.n.05",1920,"tape","n",NA,3,"['record', 'record_book', 'book']","n",0
+"184","record","record.n.05",1920,"album","n",NA,3,"['record', 'record_book', 'book']","n",0
+"185","record","record.n.06",1920,"tape","n",NA,1,"['record']","n",0
+"186","record","record.n.06",1920,"album","n",NA,1,"['record']","n",0
+"187","record","record.n.07",1920,"tape","n",NA,1,"['record']","n",0
+"188","record","record.n.07",1920,"album","n",NA,1,"['record']","n",0
