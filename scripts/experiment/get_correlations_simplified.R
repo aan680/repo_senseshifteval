@@ -277,9 +277,18 @@ if(opt$dataset!="HW"){senseshifteval(results)} #as HW has no synsets
 #this is the method of word shift eval by HW. Beware: missing observations treated as zeros
 #these results were not reported but good as a reference and cross-check
 
-#results_hw <- apply(input, 1, function(x) evaluate_by_hw(x["target"], x["ref"], as.numeric(x["t"]), as.numeric(x["gold"]), opt$dir_hw_vectors)) %>% do.call(rbind, .) %>% cbind(input, .)
-#apply(results_hw,2,unlist) %>% write.csv(., file=paste("results/", opt$corpus, "hw_wordshifteval_", opt$dataset, ".csv",sep=""))
+results_hw <- apply(input, 1, function(x) evaluate_by_hw(x["target"], x["ref"], as.numeric(x["t"]), as.numeric(x["gold"]), opt$dir_hw_vectors)) %>% do.call(rbind, .) %>% cbind(input, .)
+apply(results_hw,2,unlist) %>% write.csv(., file=paste("results/", opt$corpus, "hw_wordshifteval_", opt$dataset, ".csv",sep=""))
 
+#numbers reported in the paper
+results - results_hw
+N <- subset(results, !is.na(results$correct))%>% nrow() #nr of non NA results
+N_correct <- sum(as.numeric(results[['correct']]), na.rm=T) 
+pct_correct <- N_correct/ N
+pct_correct_and_sig <- subset(results, results$correct==1 & results$sig==1) %>% nrow(.) / N_correct
+summary <- rbind(100*pct_correct, 100*pct_correct_and_sig, N)
+print(summary)
+write.table(summary, file=paste("results/", opt$corpus, "hw_summary_wordshifteval_", opt$dataset, ".csv",sep=""))
 
 
 
