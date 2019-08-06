@@ -135,4 +135,6 @@ hwplus2c <- resultfile("SGNS", "HW+") %>% get_stats_and_summarise(., t_c=2)
 ht1c<- resultfile("SGNS", "HT") %>% get_stats_and_summarise(., t_c=1)
 hwplus1c <- resultfile("SGNS", "HW+") %>% get_stats_and_summarise(., t_c=1)
 
+ht3c<- resultfile("SGNS", "HT") %>% get_stats_and_summarise(., t_c=3)
+hwplus3c <- resultfile("SGNS", "HW+") %>% get_stats_and_summarise(., t_c=3)
 
