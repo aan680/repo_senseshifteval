@@ -53,12 +53,12 @@ low_high <- function(df, t) {df[low(df$polysemy_target, t) & high(df$polysemy_re
 
 
 #centrality
-strong <- function(x) {x <= 1}
-weak <- function(x) {x > 1}
-strong_strong <- function(df) {df[strong(df$target_centrality) & strong(df$ref_centrality),"correct"] %>% summarize(., N_dataset=nrow(df))}
-strong_weak <- function(df) {df[strong(df$target_centrality) & weak(df$ref_centrality),"correct"] %>% summarize(., N_dataset=nrow(df))}
-weak_strong<- function(df) {df[weak(df$target_centrality) & strong(df$ref_centrality),"correct"] %>% summarize(., N_dataset=nrow(df))}
-weak_weak <- function(df) {df[weak(df$target_centrality) & weak(df$ref_centrality),"correct"] %>% summarize(., N_dataset=nrow(df))}
+strong <- function(x, max) {x <= max}
+weak <- function(x, max) {x > max}
+strong_strong <- function(df, max) {df[strong(df$target_centrality, max) & strong(df$ref_centrality, max),"correct"] %>% summarize(., N_dataset=nrow(df))}
+strong_weak <- function(df, max) {df[strong(df$target_centrality, max) & weak(df$ref_centrality, max),"correct"] %>% summarize(., N_dataset=nrow(df))}
+weak_strong<- function(df, max) {df[weak(df$target_centrality, max) & strong(df$ref_centrality, max),"correct"] %>% summarize(., N_dataset=nrow(df))}
+weak_weak <- function(df, max) {df[weak(df$target_centrality, max) & weak(df$ref_centrality, max),"correct"] %>% summarize(., N_dataset=nrow(df))}
 
 #frequency
 frequent <- function(x, threshold) {x > threshold}
@@ -70,7 +70,7 @@ infreq_freq <- function(df, t) {df[infrequent(df$freq.x, t) & frequent(df$freq.y
 
 
 
-get_stats_and_summarise <- function(file, t_poly, t_freq=10000, is_hw=FALSE, add_freqs=FALSE){ #if is_hw then drop centrality (as no synset relation)
+get_stats_and_summarise <- function(file, t_c=1, t_poly=4, t_freq=10000, is_hw=FALSE, add_freqs=FALSE){ #if is_hw then drop centrality (as no synset relation)
 	df <- read.csv(file, sep =",", header=T) %>% unique(.) %>% .[!is.na(.$corr),]
 	N <- nrow(df)
 	if(is_hw | add_freqs){ #then todo add polysemy and freq
@@ -93,7 +93,7 @@ get_stats_and_summarise <- function(file, t_poly, t_freq=10000, is_hw=FALSE, add
 	print(polysemy)
 	print(frequency)
 	if(!is_hw){
-	centrality <- cbind(weak_weak(df), weak_strong(df), strong_weak(df), strong_strong(df)) %>% round(., 1)
+	centrality <- cbind(weak_weak(df, t_c), weak_strong(df, t_c), strong_weak(df, t_c), strong_strong(df, t_c)) %>% round(., 1)
 	rownames(centrality) <- "centrality"
 	colnames(centrality) <-c("LL", "n","LH", "n","HL", "n","HH", "n")
 	print(centrality)
@@ -129,8 +129,10 @@ hwplus100k <- resultfile("SGNS", "HW+") %>% get_stats_and_summarise(., t_poly=4,
 
 ht100k <- resultfile("SGNS", "HT") %>% get_stats_and_summarise(., t_poly=4, t_freq=100000, add_freqs=TRUE) #check
 
+ht2c<- resultfile("SGNS", "HT") %>% get_stats_and_summarise(., t_c=2)
+hwplus2c <- resultfile("SGNS", "HW+") %>% get_stats_and_summarise(., t_c=2)
 
-
-
+ht1c<- resultfile("SGNS", "HT") %>% get_stats_and_summarise(., t_c=1)
+hwplus1c <- resultfile("SGNS", "HW+") %>% get_stats_and_summarise(., t_c=1)
 
 
