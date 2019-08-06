@@ -3,15 +3,13 @@
 library(magrittr)
 
 ht <- read.csv("/ufs/aggelen/SenseShiftEval/data/HT/gold_old_and_new.csv", sep=",", header=T, row.names=NULL) %>% unique(.)
-
 wsct <- read.csv("/ufs/aggelen/SenseShiftEval/data/WSCT/gold_wordpair_after_iaa.csv", sep=",", header=T, row.names=NULL) %>% unique(.)
-
-hwwn <- read.csv("/ufs/aggelen/SenseShiftEval/data/HW/gold_wordpair_after_iaa.csv", sep=",", header=T, row.names=NULL) %>% unique(.)
-hwwn <- read.csv("/ufs/aggelen/SenseShiftEval/data/HW/gold_wordpair_after_iaa.csv", sep=",", header=T, row.names=NULL) %>% unique(.)
+hwplus <- read.csv("/ufs/aggelen/SenseShiftEval/data/HW/gold_wordpair_after_iaa.csv", sep=",", header=T, row.names=NULL) %>% unique(.)
+hw <- read.csv("/ufs/aggelen/SenseShiftEval/data/HW/gold_hamilton_28.csv", header=T, row.names=NULL) %>% unique(.)
 
 
 wsct$syn <- wsct$synset
-hwwn$syn <- hwwn$synset
+hwplus$syn <- hwplus$synset
 
 #word pair level, so gold standard as-is, with every row an entry
 
@@ -44,10 +42,6 @@ N_total <- function(df){
 	return(length(targetref))
 	}
 
-N_synset_target_all <- function(df){
-	dfs <- split(df, list(df$syn, df$target, df$t), drop=TRUE)
-	return(length(dfs))
-	}
 
 N_target_sense_in_gold <- function(df, value){
 	length <- subset(df, df$gold==value) %>% split(., list(.$syn, .$target, .$t), drop=TRUE) %>% length(.)
@@ -70,12 +64,12 @@ allstats <- function(df){
 	print(one + minus + zero)
 }
 
-synsets <-  hwwn %>% split(., list(.$syn, .$target, .$t), drop=TRUE) 
-lapply(synsets, function(x) unique(x)$gold==-1)
+#synsets <-  hwwn %>% split(., list(.$syn, .$target, .$t), drop=TRUE) 
+#lapply(synsets, function(x) unique(x)$gold==-1)
 
 
 allstats(wsct)
-allstats(hwwn)
+allstats(hwplus)
 allstats(ht)
 
 
